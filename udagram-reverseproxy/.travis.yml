@@ -1,4 +1,7 @@
-- docker build -t udagram-reverseproxy ./udagram-reverseproxy
-- docker tag udagram-reverseproxy mozurok/udagram-reverseproxy:v1
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push mozurok/udagram-reverseproxy:v1
+services:
+  - docker
+script:
+  - docker build -t udagram-reverseproxy ./udagram-reverseproxy
+  - docker tag udagram-reverseproxy mozurok/udagram-reverseproxy:v1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mozurok/udagram-reverseproxy:v1

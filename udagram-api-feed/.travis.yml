@@ -1,4 +1,7 @@
-- docker build -t udagram-api-feed ./udagram-api-feed
-- docker tag udagram-api-feed mozurok/udagram-api-feed:v1
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push mozurok/udagram-api-feed:v1
+services:
+  - docker
+script:
+  - docker build -t udagram-api-feed ./udagram-api-feed
+  - docker tag udagram-api-feed mozurok/udagram-api-feed:v1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mozurok/udagram-api-feed:v1

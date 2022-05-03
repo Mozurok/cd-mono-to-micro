@@ -1,4 +1,7 @@
-- docker build -t udagram-frontend ./udagram-frontend
-- docker tag udagram-frontend mozurok/udagram-frontend:v1
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push mozurok/udagram-frontend:v1
+services:
+  - docker
+script:
+  - docker build -t udagram-frontend ./udagram-frontend
+  - docker tag udagram-frontend mozurok/udagram-frontend:v1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mozurok/udagram-frontend:v1
