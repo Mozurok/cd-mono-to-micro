@@ -11,7 +11,6 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
   if (!req.headers || !req.headers.authorization) {
     return res.status(401).send({message: 'No authorization headers.'});
   }
-
   const tokenBearer = req.headers.authorization.split(' ');
   if (tokenBearer.length != 2) {
     return res.status(401).send({message: 'Malformed token.'});
@@ -24,6 +23,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     }
     return next();
   });
+
 }
 
 // Get all feed items
@@ -49,8 +49,11 @@ router.get('/:id',
 router.get('/signed-url/:fileName',
     requireAuth,
     async (req: Request, res: Response) => {
+    console.log('SIGNED')
       const {fileName} = req.params;
+    console.log(fileName)
       const url = AWS.getPutSignedUrl(fileName);
+      console.log(url)
       res.status(201).send({url: url});
     });
 
@@ -58,6 +61,8 @@ router.get('/signed-url/:fileName',
 router.post('/',
     requireAuth,
     async (req: Request, res: Response) => {
+        console.log('VEM DEPOIS DA CALL??')
+
       const caption = req.body.caption;
       const fileName = req.body.url; // same as S3 key name
 
