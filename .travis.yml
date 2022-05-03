@@ -1,0 +1,23 @@
+services:
+  - docker
+script:
+  #FEED START
+  - docker build -t udagram-api-feed ./udagram-api-feed
+  - docker tag udagram-api-feed mozurok/udagram-api-feed:v1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mozurok/udagram-api-feed:v1
+  #FRONTEND START
+  - docker build -t udagram-frontend ./udagram-frontend
+  - docker tag udagram-frontend mozurok/udagram-frontend:v1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mozurok/udagram-frontend:v1
+  #REVERSEPROXY START
+  - docker build -t udagram-reverseproxy ./udagram-reverseproxy
+  - docker tag udagram-reverseproxy mozurok/udagram-reverseproxy:v1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mozurok/udagram-reverseproxy:v1
+  #USER START
+  - docker build -t udagram-api-user ./udagram-api-user
+  - docker tag udagram-api-user mozurok/udagram-api-user:v1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mozurok/udagram-api-user:v1
